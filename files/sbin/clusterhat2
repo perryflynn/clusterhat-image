@@ -1,0 +1,65 @@
+#!/usr/bin/python
+
+import argparse
+import sys
+
+sys.path.append('../usr/share/clusterhat/python')
+
+def get_arguments():
+	"""Parse and validate the arguments."""
+	parser = argparse.ArgumentParser()
+	
+	parser.add_argument('--on', nargs='+', default=[], required=False, 
+		choices=['p1', 'p2', 'p3', 'p4', 'all'], 
+		help='Ports to turn on')
+	
+	parser.add_argument('--off', nargs='+', default=[], required=False, 
+		choices=['p1', 'p2', 'p3', 'p4', 'all'], 
+		help='Ports to turn off')
+	
+	parser.add_argument('--toggle', nargs='+', default=[], required=False, 
+		choices=['p1', 'p2', 'p3', 'p4', 'all'], 
+		help='Ports to toggle')
+	
+	parser.add_argument('--alarm', default=None, required=False, 
+		choices=['on', 'off', 'toggle'], 
+		help='Control the alarm LED')
+	
+	parser.add_argument('--led', default=None, required=False, 
+		choices=['on', 'off', 'toggle'], 
+		help='Control the HAT LED')
+	
+	parser.add_argument('--hub', default=None, required=False, 
+		choices=['on', 'off', 'toggle'], 
+		help='Control the USB Hub')
+	
+	parser.add_argument('--write-protect', default=None, required=False, 
+		choices=['on', 'off', 'toggle'], 
+		help='Control the HAT EEPROM Write Protect')
+
+	parser.add_argument("--status", action="store_true", default=False, required=False,
+		help="Show the current HAT status")
+	
+	args = parser.parse_args()
+
+	if len(sys.argv) <= 1:
+		parser.print_help()
+		sys.exit(1)
+
+	if 'all' in args.on:
+		args.on = [ 'p1', 'p2', 'p3', 'p4' ]
+
+	if 'all' in args.off:
+		args.off = [ 'p1', 'p2', 'p3', 'p4' ]
+
+	if 'all' in args.toggle:
+		args.toggle = [ 'p1', 'p2', 'p3', 'p4' ]
+
+	return args
+
+def main():
+	args = get_arguments()
+	print(args)
+
+if __name__ == "__main__":
+	main()
