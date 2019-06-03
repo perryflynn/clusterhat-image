@@ -5,6 +5,7 @@ import sys
 
 sys.path.append('../usr/share/clusterhat/python')
 
+
 def get_arguments():
 	"""Parse and validate the arguments."""
 	parser = argparse.ArgumentParser()
@@ -40,6 +41,9 @@ def get_arguments():
 	parser.add_argument("--status", action="store_true", default=False, required=False,
 		help="Show the current HAT status")
 	
+	parser.add_argument("--verbose", action="store_true", default=False, required=False,
+		help="Print messages what this script currently does")
+	
 	args = parser.parse_args()
 
 	if len(sys.argv) <= 1:
@@ -57,9 +61,11 @@ def get_arguments():
 
 	return args
 
+
 def main():
 	args = get_arguments()
 	print(args)
+
 
 if __name__ == "__main__":
 	main()
